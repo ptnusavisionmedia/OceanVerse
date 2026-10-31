@@ -7,7 +7,7 @@ import { FactMachine } from '@/components/FactMachine';
 import { References } from '@/components/References';
 import { WaveDivider } from '@/components/WaveDivider';
 import { ZONES } from '@/data/explore';
-import { NAV_BY_KEY } from '@/data/site';
+import { NAV, NAV_BY_KEY } from '@/data/site';
 import { SPECIES } from '@/data/species';
 import { cn } from '@/lib/cn';
 import { cssVars } from '@/lib/css';
@@ -93,14 +93,28 @@ export default function HomePage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-md">
-            <div className="relative grid aspect-square place-items-center overflow-hidden leaf-r bg-aqua bg-waves brut-lg">
-              <Image
-                src={symbol}
-                alt="Simbol OceanVerse: ombak yang melengkung dengan ekor paus"
-                loading="eager"
-                className="w-[82%] animate-bob"
-              />
+            <div className="relative flex flex-col justify-center gap-4 overflow-hidden leaf-r bg-aqua bg-waves p-6 brut-lg md:p-8">
+              <nav aria-label="Menu utama" className="flex flex-col gap-4">
+                {NAV.map((item, i) => (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    aria-label={item.label}
+                    className="nav-link"
+                    style={cssVars({ '--tilt': i % 2 ? '2deg' : '-2deg' })}
+                  >
+                    <Image src={item.img} alt="" loading="eager" className="w-full" />
+                  </Link>
+                ))}
+              </nav>
             </div>
+            {/* Simbol OceanVerse dipindah ke sini: stiker melayang di pojok kartu tombol */}
+            <Image
+              src={symbol}
+              alt="Simbol OceanVerse: ombak yang melengkung dengan ekor paus"
+              loading="eager"
+              className="pointer-events-none absolute -top-14 -right-4 z-10 h-32 w-32 rotate-12 animate-bob [filter:drop-shadow(5px_5px_0_var(--color-ink))] md:-right-10 md:h-40 md:w-40"
+            />
             <span
               className="absolute top-6 -left-3 sticker text-2xl md:-left-8"
               style={cssVars({ '--r': '-8deg' })}

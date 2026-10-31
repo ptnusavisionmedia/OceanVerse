@@ -6,7 +6,8 @@ import '@fontsource-variable/dm-sans/index.css';
 import './globals.css';
 
 import { Footer } from '@/components/Footer';
-import { Nav } from '@/components/Nav';
+import { AppShell } from '@/components/AppShell';
+import { LogoBar } from '@/components/LogoBar';
 import { SiteEffects } from '@/components/SiteEffects';
 import { Ticker } from '@/components/Ticker';
 import { SITE } from '@/data/site';
@@ -43,13 +44,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Lompat ke konten
         </a>
-        <Nav />
-        {/* lg:pr-[17rem] = lebar panel navigasi kanan */}
-        <div className="relative lg:pr-[17rem]">
+        <AppShell>
           <Ticker />
+          <LogoBar />
           <main id="main">{children}</main>
           <Footer />
-        </div>
+        </AppShell>
         <SiteEffects />
       </body>
     </html>

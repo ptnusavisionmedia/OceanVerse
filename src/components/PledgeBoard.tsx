@@ -107,7 +107,7 @@ export function PledgeBoard() {
       </div>
 
       <aside
-        className="bg-ink p-6 text-paper brut-lg lg:sticky lg:top-6"
+        className="bg-ink p-6 text-paper brut-lg lg:sticky lg:top-24"
         aria-labelledby="rank-title"
         id="pledge-card"
       >
