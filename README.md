@@ -34,6 +34,7 @@ npm run start        # uji hasil build di http://localhost:3000
 ```
 
 Di Windows, klik dua kali `start.bat` untuk install + menjalankan mode pengembangan.
+Bila muncul error aneh setelah file diganti, jalankan `npm run clean` lalu `npm run dev` (cache `.next` dibersihkan otomatis tiap `dev`).
 
 ### Perintah kualitas kode
 
