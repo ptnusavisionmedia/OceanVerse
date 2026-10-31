@@ -297,6 +297,64 @@
     drop-shadow(0 0 10px rgb(255 207 36 / 0.9));
 }
 
+.rail-link {
+  --rail: clamp(116px, 17vh, 168px);
+  position: relative;
+  display: block;
+  width: 3.6rem;
+  height: var(--rail);
+  filter: drop-shadow(3px 3px 0 var(--color-ink));
+  transition:
+    transform 0.15s cubic-bezier(0.3, 1.6, 0.5, 1),
+    filter 0.12s;
+}
+/* gambar tombol diputar tegak; kotak tautan tetap vertikal */
+.rail-link img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--rail);
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+.rail-link:hover {
+  transform: translateX(10px) rotate(var(--tilt, 3deg)) scale(1.08);
+  filter: drop-shadow(6px 4px 0 var(--color-ink));
+}
+.rail-link:active {
+  transform: translateX(2px) scale(0.96);
+}
+.rail-link[aria-current='page'] {
+  transform: translateX(12px) scale(1.12);
+  filter: drop-shadow(0 0 10px var(--color-sun)) drop-shadow(4px 4px 0 var(--color-ink));
+}
+.rail-link[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -18px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 12px solid var(--color-sun);
+  transform: translateY(-50%);
+}
+
+/* Menu ponsel: tombol "mengipas" keluar dari gelembung */
+.fan-in {
+  animation: fan-in 0.35s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  animation-delay: calc(var(--i, 1) * 50ms);
+  rotate: var(--tilt, 0deg);
+}
+@keyframes fan-in {
+  from {
+    opacity: 0;
+    transform: translate(40px, 60px) scale(0.5);
+  }
+}
+
 .marquee {
   overflow: hidden;
 }
