@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import logo from '@/assets/brand/logo.webp';
 import symbol from '@/assets/brand/symbol.webp';
 import { NAV } from '@/data/site';
 import { cn } from '@/lib/cn';
@@ -16,7 +17,7 @@ function isActive(pathname: string, href: string) {
 
 /**
  * Navigasi tanpa navbar atas:
- * - Desktop: rel vertikal tetap di tepi kiri, tombol aset diputar tegak.
+ * - Desktop: panel tetap di sisi kanan dengan latar berbeda dari konten (logo + tombol-tombol).
  * - Ponsel: gelembung melayang di kanan bawah yang mengembang jadi tumpukan tombol.
  */
 export function Nav() {
@@ -34,32 +35,38 @@ export function Nav() {
 
   return (
     <>
-      {/* ===== Desktop: rel kiri ===== */}
-      <nav
-        aria-label="Menu utama"
-        className="fixed inset-y-0 left-0 z-50 hidden w-24 flex-col items-center justify-center gap-[clamp(10px,2vh,22px)] border-r-4 border-ink bg-azure bg-chart lg:flex"
-      >
-        <Link
-          href="/"
-          aria-label="OceanVerse — ke Beranda"
-          className="absolute top-4 block hover:rotate-12"
-        >
-          <Image src={symbol} alt="" loading="eager" className="h-14 w-14 animate-bob" />
-        </Link>
-
-        {NAV.map((item, i) => (
+      {/* ===== Desktop: panel kanan ===== */}
+      <aside className="fixed inset-y-0 right-0 z-50 hidden w-[17rem] flex-col overflow-y-auto border-l-4 border-ink bg-deep bg-chart-light lg:flex">
+        <div className="h-3 shrink-0 bg-stripes" aria-hidden="true" />
+        <div className="flex flex-1 flex-col items-center gap-6 px-7 py-6">
           <Link
-            key={item.key}
-            href={item.href}
-            aria-label={item.label}
-            aria-current={isActive(pathname, item.href) ? 'page' : undefined}
-            className="rail-link"
-            style={cssVars({ '--tilt': i % 2 ? '3deg' : '-3deg' })}
+            href="/"
+            aria-label="OceanVerse — ke Beranda"
+            className="block w-full [filter:drop-shadow(3px_3px_0_var(--color-ink))] hover:scale-105 hover:-rotate-2"
           >
-            <Image src={item.imgSm} alt="" loading="eager" />
+            <Image src={logo} alt="OceanVerse" loading="eager" className="w-full" />
           </Link>
-        ))}
-      </nav>
+
+          <nav aria-label="Menu utama" className="flex w-full flex-1 flex-col justify-center gap-5">
+            {NAV.map((item, i) => (
+              <Link
+                key={item.key}
+                href={item.href}
+                aria-label={item.label}
+                aria-current={isActive(pathname, item.href) ? 'page' : undefined}
+                className="dock-link"
+                style={cssVars({ '--tilt': i % 2 ? '2deg' : '-2deg' })}
+              >
+                <Image src={item.imgSm} alt="" loading="eager" className="w-full" />
+              </Link>
+            ))}
+          </nav>
+
+          <p className="sticker bg-aqua" style={cssVars({ '--r': '-3deg' })}>
+            Discover · Learn · Protect
+          </p>
+        </div>
+      </aside>
 
       {/* ===== Ponsel: gelembung melayang ===== */}
       <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end gap-3 lg:hidden">
@@ -82,14 +89,20 @@ export function Nav() {
               aria-current={isActive(pathname, item.href) ? 'page' : undefined}
               onClick={() => setOpen(false)}
               className="nav-link fan-in w-60"
-              style={cssVars({
-                '--i': NAV.length - i,
-                '--tilt': i % 2 ? '3deg' : '-4deg',
-              })}
+              style={cssVars({ '--i': NAV.length - i, '--tilt': i % 2 ? '3deg' : '-4deg' })}
             >
               <Image src={item.imgSm} alt="" className="w-full" />
             </Link>
           ))}
+          <Link
+            href="/"
+            aria-label="OceanVerse — ke Beranda"
+            onClick={() => setOpen(false)}
+            className="fan-in w-44 asset-shadow"
+            style={cssVars({ '--i': 0, '--tilt': '2deg' })}
+          >
+            <Image src={logo} alt="OceanVerse" className="w-full" />
+          </Link>
         </div>
 
         <button

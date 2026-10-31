@@ -6,7 +6,6 @@ import '@fontsource-variable/dm-sans/index.css';
 import './globals.css';
 
 import { Footer } from '@/components/Footer';
-import { LogoSticker } from '@/components/LogoSticker';
 import { Nav } from '@/components/Nav';
 import { SiteEffects } from '@/components/SiteEffects';
 import { Ticker } from '@/components/Ticker';
@@ -45,10 +44,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Lompat ke konten
         </a>
         <Nav />
-        {/* lg:pl-24 = lebar rel navigasi kiri */}
-        <div className="relative lg:pl-24">
+        {/* lg:pr-[17rem] = lebar panel navigasi kanan */}
+        <div className="relative lg:pr-[17rem]">
           <Ticker />
-          <LogoSticker />
           <main id="main">{children}</main>
           <Footer />
         </div>
